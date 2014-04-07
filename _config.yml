@@ -1,7 +1,8 @@
-name:          "WTF, HTML and CSS?"
-url:           http://wtfhtmlcss.com
-repo:          https://github.com/mdo/wtf-html-css
+name:          "WTF, HTML 그리고 CSS?"
+url:           http://snack-x.github.io/wtf-html-css
+repo:          https://github.com/snack-x/wtf-html-css
 twitter:       https://twitter.com/mdo
+twitter_snack: https://twitter.com/Snack_X
 
 markdown:      redcarpet
 permalink:     pretty

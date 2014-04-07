@@ -4,9 +4,9 @@ layout: default
 
 ### Contents
 
-- [Declare a doctype](#doctype)
+- [doctype을 지정하기](#doctype)
 - [Box model math](#box-model-math)
-- [Rem units and Mobile Safari](#rems-mobile-safari)
+- [Rem units and mobile safari](#rems-mobile-safari)
 - [Floats first](#floats-first)
 - [Floats and clearing](#floats-clearing)
 - [Floats and computed height](#floats-computed-height)
@@ -23,14 +23,14 @@ layout: default
 
 
 <a name="doctype"></a>
-### Declare a doctype
-Always include a doctype. I recommend the simple HTML5 doctype:
+### doctype을 지정하기
+doctype을 언제나 삽입하라. 나는 다음의 간단한 HTML5 doctype을 추천한다:
 
 ```html
 <!DOCTYPE html>
 ```
 
-[Skipping the doctype can cause issues](http://quirks.spec.whatwg.org) with malformed tables, inputs, and more as the page will be rendered in quirks mode.
+[doctype을 빼먹을 경우](http://quirks.spec.whatwg.org) 기형인 테이블, input에서, 페이지가 quirks mode로 렌더링 될 경우엔 더 많은 문제가 발생할 수 있다.
 
 
 <a name="box-model-math"></a>
