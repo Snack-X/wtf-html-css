@@ -5,12 +5,12 @@ layout: default
 ### Contents
 
 - [doctype을 지정하기](#doctype)
-- [Box model math](#box-model-math)
-- [Rem units and mobile safari](#rems-mobile-safari)
-- [Floats first](#floats-first)
-- [Floats and clearing](#floats-clearing)
-- [Floats and computed height](#floats-computed-height)
-- [Floated are block level](#floats-block-level)
+- [박스 모델 계산](#box-model-math)
+- [rem 단위와 모바일 사파리](#rems-mobile-safari)
+- [float 먼저](#floats-first)
+- [float와 clear](#floats-clearing)
+- [float와 계산된 높이](#floats-computed-height)
+- [float된 것은 블록 레벨](#floats-block-level)
 - [Vertical margins often collapse](#vertical-margins-collapse)
 - [Styling table rows](#styling-table-rows)
 - [Firefox and `<input>` buttons](#buttons-firefox)
@@ -34,29 +34,29 @@ doctype을 언제나 삽입하라. 나는 다음의 간단한 HTML5 doctype을 �
 
 
 <a name="box-model-math"></a>
-### Box model math
-Elements that have a set `width` become *wider* when they have `padding` and/or `border-width`. To avoid these problems, make use of the now common [`box-sizing: border-box;` reset](http://www.paulirish.com/2012/box-sizing-border-box-ftw/).
+### 박스 모델 계산
+`width`가 설정된 요소는 `padding` 이나 `border-width`가 있을 경우 더 *넓어진다*. 이 문제를 피하기 위해선, 이젠 일반적인 [`box-sizing: border-box;` reset](http://www.paulirish.com/2012/box-sizing-border-box-ftw/)을 사용하라.
 
 
 <a name="rems-mobile-safari"></a>
-### Rem units and Mobile Safari
-While Mobile Safari supports the use of `rem`s in all property values, it seems to shit the bed when `rem`s are used in dimensional media queries and infinitely flashes the page's text in different sizes.
+### rem 단위와 모바일 사파리
+모바일 사파리가 `rem`을 모든 속성 값에 지원하기 때문에, `rem`이 크기의 미디어 쿼리에 사용된 경우 페이지의 텍스트가 다른 크기로 깜빡이는 경우가 생긴다.
 
-For now, use `em`s in place of `rem`s.
+이젠 `rem` 대신 `em`을 사용하라.
 
 ```css
 html {
   font-size: 16px;
 }
 
-/* Causes flashing bug in Mobile Safari */
+/* 모바일 사파리에서 깜빡이는 버그가 생김 */
 @media (min-width: 40rem) {
   html {
     font-size: 20px;
   }
 }
 
-/* Works great in Mobile Safari */
+/* 모바일 사파리에서 잘 됨 */
 @media (min-width: 40em) {
   html {
     font-size: 20px;
@@ -64,12 +64,12 @@ html {
 }
 ```
 
-**Help!** *If you have a link to an Apple or WebKit bug report for this, I'd love to include it. I'm unsure where to report this as it only applies to Mobile, and not Desktop, Safari.*
+**Help!** *이에 관한 Apple이나 WebKit 버그 리포트가 있다면 그걸 넣고 싶다. 데스크탑 사파리가 아니라 오직 모바일 사파리에서만 발생하기 때문에 어디에 제보해야 하는지 확실하지 않다.*
 
 
 <a name="floats-first"></a>
-### Floats first
-Floated elements should always come first in the document order. Floated elements require something to wrap around, otherwise they can cause a step down effect, instead appearing below the content.
+### float 먼저
+float된 요소는 문서에서 순서 상으로 가장 먼저 와야 한다. float된 요소는 뭔가로 감싸지 않으면 내용 밑에 나타나는 대신 밑으로 내려가지는 효과가 생긴다.
 
 ```html
 <div class="parent">
@@ -82,10 +82,10 @@ Floated elements should always come first in the document order. Floated element
 
 
 <a name="floats-clearing"></a>
-### Floats and clearing
-If you float it, you *probably* need to clear it. Any content that follows an element with a `float` will wrap around that element until cleared. To clear floats, use one of the following techniques.
+### float와 clear
+float를 썼으면, *아마도* clear할 필요가 있다. `float`된 요소 뒤에 따라오는 모든 내용은 clear되기 전까지 그 요소를 감싸게 될 것이다. float를 clear하기 위해서는 다음 중 하나를 사용하라.
 
-Use [the micro clearfix](http://nicolasgallagher.com/micro-clearfix-hack/) to clear your floats with a separate class.
+float를 clear하려면 별개의 class로 된 [작은 clearfix](http://nicolasgallagher.com/micro-clearfix-hack/)를 사용하라.
 
 ```css
 .clearfix:before,
@@ -98,7 +98,7 @@ Use [the micro clearfix](http://nicolasgallagher.com/micro-clearfix-hack/) to cl
 }
 ```
 
-Alternatively, specify `overflow`, with `auto` or `hidden`, on the parent.
+혹은 부모 요소에 `overflow`를 `auto`나 `hidden`으로 지정해도 좋다.
 
 ```css
 .parent {
@@ -109,28 +109,28 @@ Alternatively, specify `overflow`, with `auto` or `hidden`, on the parent.
 }
 ```
 
-Be aware that `overflow` can cause other unintended side effects, typically around positioned elements within the parent.
+`overflow`는 부모 안에 있는 위치가 지정된 요소같은 곳에서 의도치 않은 부작용이 생길 수도 있다는 것을 명심하라.
 
-**Pro-Tip!** *Keep your future self and your coworkers happy by including a comment like `/* clearfix */` when clearing floats as the property can be used for other reasons.*
+**Pro-Tip!** *float를 clear할 때는 `/* clearfix */` 같은 주석을 넣어 미래의 자신과 당신의 협업자가 행복할 수 있도록 하라.*
 
 
 <a name="floats-computed-height"></a>
-### Floats and computed height
-A parent element that has only floated content will have a computed `height: 0;`. Add a clearfix to the parent to force browsers to compute a height.
+### float와 계산된 높이
+float된 요소만을 가진 부모 요소는 계산된 `height; 0;`를 가지게 된다. 부모에 clearfix를 적용하여 브라우저가 높이를 계산하도록 강제하라.
 
 
 <a name="floats-block-level"></a>
-### Floated elements are block level
-Elements with a `float` will automatically become `display: block;`. Do not set both as there is no need and the `float` will override your `display`.
+### float된 것은 블록 레벨
+`float`를 가진 요소는 자동으로 `display: block;`이 된다. `float`가 자동으로 `display`를 overried하기 때문에 둘 다 설정할 필요는 없다.
 
 ```css
 .element {
   float: left;
-  display: block; /* Not necessary */
+  display: block; /* 필요 없음 */
 }
 ```
 
-**Fun fact:** *Years ago, we had to set `display: inline;` for most floats to work properly in IE6 to avoid the [double margin bug](http://www.positioniseverything.net/explorer/doubled-margin.html). However, those days have long passed.*
+**재밌는 사실:** *수년 전까지 우리는 IE6에서의 [double margin 버그](http://www.positioniseverything.net/explorer/doubled-margin.html)를 피하기 위해 대부분의 float에 `display: inline;`을 지정해 줘야 했다. 하지만, 그런 시간은 이미 지났다.*
 
 
 <a name="vertical-margins-collapse"></a>
