@@ -14,12 +14,12 @@ layout: default
 - [수직 margin은 자주 충돌한다](#vertical-margins-collapse)
 - [표의 줄 꾸미기](#styling-table-rows)
 - [Firefox와 `<input>` 버튼](#buttons-firefox)
-- [Firefox inner outline on buttons](#buttons-firefox-outline)
-- [Always set a `type` on `<button>`s](#buttons-type)
-- [Internet Explorer's selector limit](#ie-selector-limit)
-- [Position explained](#position-explained)
-- [Position and width](#position-width)
-- [Fixed position and transforms](#position-transforms)
+- [버튼에서 Firefox의 내부 outline](#buttons-firefox-outline)
+- [언제나 `<button>`에 `type`을 지정하라](#buttons-type)
+- [Internet Explorer의 selector 제한](#ie-selector-limit)
+- [position 설명](#position-explained)
+- [position과 너비](#position-width)
+- [fixed position과 transform](#position-transforms)
 
 
 <a name="doctype"></a>
@@ -30,7 +30,7 @@ doctype을 언제나 삽입하라. 나는 다음의 간단한 HTML5 doctype을 �
 <!DOCTYPE html>
 ```
 
-[doctype을 빼먹을 경우](http://quirks.spec.whatwg.org) 기형인 테이블, input에서, 페이지가 quirks mode로 렌더링 될 경우엔 더 많은 문제가 발생할 수 있다.
+[doctype을 빼먹을 경우](http://quirks.spec.whatwg.org) 기형인 표, input에서, 페이지가 quirks mode로 렌더링 될 경우엔 더 많은 문제가 발생할 수 있다.
 
 
 <a name="box-model-math"></a>
@@ -172,9 +172,9 @@ float된 요소만을 가진 부모 요소는 계산된 `height; 0;`를 가지�
 
 
 <a name="buttons-firefox-outline"></a>
-### Firefox inner outline on buttons
+### 버튼에서 Firefox의 내부 outline
 
-Firefox [adds an inner outline](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Notes) to buttons (`<input>`s and `<button>`s) on `:focus`. Apparently it's for accessibility, but its placement seems rather odd. Use this CSS to override it:
+Firefox는 버튼(`<input>`과 `<button>`)의 `:focus`시 [내부 outline을 추가한다](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Notes). 접근성을 위한 것으로 보이지만 위치는 조금 이상하다. 이 CSS로 그걸 override하라:
 
 ```css
 input::-moz-focus-inner,
@@ -184,44 +184,44 @@ button::-moz-focus-inner {
 }
 ```
 
-You can see this fix in action in the same [JS Bin example](http://jsbin.com/yabek/4/) mentioned in the previous section.
+전 섹션에서 언급한 같은 [JS Bin 예시](http://jsbin.com/yabek/4/)에서 이 fix가 작동하는 것을 볼 수 있다.
 
-**Pro-Tip!** *Be sure to include some focus state on buttons, links, and inputs. Providing an affordance for accessibility is paramount, both for pro users who tab through content and those with vision impairments.*
+**전문팁!** *버튼과 링크, input에 focus 상태를 꼭 추가하라. 접근성을 위한 유도는 내용을 tab으로 이동하는 고급 사용자나 시각장애가 있는 사람 모두에게 중요하다.*
 
 
 <a name="buttons-type"></a>
-### Always set a `type` on `<button>`s
-The default value is `submit`, meaning any button in a form can submit the form. Use `type="button"` for anything that doesn't submit the form and `type="submit"` for those that do.
+### 언제나 `<button>`에 `type`을 지정하라
+기본 값은 `submit`이라는 것은 form의 모든 버튼이 form을 submit할 수 있다는 뜻이다. form을 submit하지 않는 버튼에는 `type="button"`을 지정하고, 하는 버튼에는 `type="submit"`을 지정하라,
 
 ```html
-<button type="submit">Save changes</button>
-<button type="button">Cancel</button>
+<button type="submit">저장하기</button>
+<button type="button">취소</button>
 ```
 
-For actions that require a `<button>` and are not in a form, use the `type="button"`.
+form 안에 없지만 필요한 `<button>`에는 `type="button"`을 지정하라.
 
 ```html
 <button class="dismiss" type="button">x</button>
 ```
 
-**Fun fact:** *Apparently IE7 doesn't properly support the `value` attribute on `<button>`s. Instead of reading the attribute's content, it pulls from the innerHTML (the content between the opening and closing `<button>` tags). However, I don't see this as a huge concern for two reasons: IE7 usage is way down, and it seems rather uncommon to set both a `value` and the innerHTML on `<button>`s.*
+**재밌는 사실:** *IE7은 `<button>`에서 `value` 속성을 지원하지 않는 것 같다. 속성의 값을 읽는 대신 innerHTML(`<button>`의 열고 닫는 태그 사이의 내용)을 가져온다. 어쨌든, 나는 두가지 이유로 이게 큰 문제라고 생각하지 않는다: IE7의 사용률은 하락하고 있고, `<button>`에 `value`와 innerHTML을 둘 다 지정하는 건 흔하지 않기 때문이다.*
 
 
 <a name="ie-selector-limit"></a>
-### Internet Explorer's selector limit
-Internet Explorer 9 and below have a max of 4,096 selectors per stylesheet. There is also a limit of 31 combined stylesheets and `<style></style>` includes per page. Anything after this limit is ignored by the browser. Either split your CSS up, or start refactoring. I'd suggest the latter.
+### Internet Explorer의 selector 제한
+Internet Explorer 9 이하는 스타일시트마다 4096개의 selector 제한이 있다. 또한 한 페이지에 도합 31개의 스타일시트와 `<style></style>` 제한이 있다. CSS를 나누거나, 리팩토링하라. 나는 후자를 추천한다.
 
-As a helpful side note, here's how browsers count selectors:
+유용한 정보로, 여기에 브라우저가 selector를 세는 방법이 있다:
 
 ```css
-/* One selector */
+/* selector 1개 */
 .element { }
 
-/* Two more selectors */
+/* selector 2개 더 */
 .element,
 .other-element { }
 
-/* Three more selectors */
+/* selector 3개 더 */
 input[type="text"],
 .form-control,
 .form-group > input { }
@@ -229,17 +229,17 @@ input[type="text"],
 
 
 <a name="position-explained"></a>
-### Position explained
-Elements with `position: fixed;` are placed relative to the browser viewport. Elements with `position: absolute;` are placed relative to their closest parent with a position other than `static` (e.g., `relative`, `absolute`, or `fixed`).
+### position 설명
+`position: fixed;`가 지정된 요소는 브라우저의 viewport에 상대적으로 놓여진다. `position: absolute;`가 지정된 요소는 가장 가까운 `static`이 아닌(예를 들어 `relative`, `absolute`, 혹은 `fixed`) 부모의 위치에 상대적으로 놓여진다.
 
 
 <a name="position-width"></a>
-### Position and width
-Don't set `width: 100%;` on an element that has `position: [absolute|fixed];`, `left`, and `right`. The use of `width: 100%;` is the same as the combined use of `left: 0;` and `right: 0;`. Use one or the other, but not both.
+### position과 너비
+`position: [absolute|fixed];`, `left`, 그리고 `right`가 지정된 요소에 `width: 100%;`를 지정하지 말라. `width: 100%;`는 `left: 0;`와 `right: 0;`를 지정한 것과 같다. 둘 중 하나만 쓰지, 둘 다 쓰지는 말라.
 
 
 <a name="position-transforms"></a>
-### Fixed position and transforms
-Browsers break `position: fixed;` when an element's parent has a `transform` set. Using transforms creates a new containing block, effectively forcing the parent to have `position: relative;` and the fixed element to behave as `position: absolute;`.
+### fixed position과 transform
+브라우저는 요소의 부모에 `transform`이 지정되어 있을 경우 `position: fixed;`를 무시한다. transform을 사용하는 것은 감싸는 블록을 새로 생성해 부모에 `position: relative;`를 지정하고, 고정된 요소를 `position: absolute;`처럼 작동하게 한다.
 
-[See the demo](http://jsbin.com/yabek/1/) and read [Eric Meyer's post on the matter](http://meyerweb.com/eric/thoughts/2011/09/12/un-fixing-fixed-elements-with-css-transforms/).
+[예시](http://jsbin.com/yabek/1/)를 보고 [관련된 Eric Meyer의 글](http://meyerweb.com/eric/thoughts/2011/09/12/un-fixing-fixed-elements-with-css-transforms/)을 읽어보라.
