@@ -1,26 +1,26 @@
-# WTF, HTML and CSS?
+# WTF, HTML 그리고 CSS?
 
-**WTF, HTML and CSS?** is a list of reasons HTML and CSS might make you say what the fuck. It's a curated list of commonly frustrating HTML and CSS quandaries, miscues, and dilemmas, created with the goal of making them *less* common.
+**WTF, HTML 그리고 CSS?**는 HTML과 CSS에서 이런 *발' 소리가 나오게 하는 이유의 목록이다. 흔히 혼란스럽게 하는 HTML과 CSS의 진퇴양난, 실수와 딜레마에 관한 목록이다.
 
-**[Start reading ☞](http://wtfhtmlcss.com)**
+**[읽어보기 ☞](http://wtfhtmlcss.com)**
 
 ---
 
-### Contribute
+### 기여
 
-Open an issue or a pull request to suggest changes or additions.
+수정이나 추가를 제안하려면 issue나 pull request를 추가하라.
 
 
-### License
+### 라이센스
 
-[MIT licensed.](LICENSE.md) Copyright 2014 @mdo.
+[MIT 라이센스.](LICENSE.md) Copyright 2014 @mdo. 한국어 번역 - [@Snack_X](https://twitter.com/Snack_X)
 
-### Translations
+### 번역
 
-Translations are maintained by their creators and may not always be up to date with the original here.
+번역은 제작자에 의해 유지되며 원본에 항상 맞춰질 필요는 없다.
 
-- [Portuguese](http://webfatorial.github.io/wtf-html-css/) - Translated by [webfatorial](http://webfatorial.com/)
+- [포르투갈어](http://webfatorial.github.io/wtf-html-css/) - 번역 - [webfatorial](http://webfatorial.com/)
 
-Have a translation you'd like to link to? Open a pull request to add it here. Be sure to keep it alphabetical.
+링크하고 싶은 번역이 있다면 새로운 pull request로 추가하라. 알파벳 순서에 맞추는 것을 잊지 말라.
 
 <3
